@@ -7,6 +7,8 @@ on:
     branches:
       - 'Bug/**'
       - 'Feature/**'
+    paths:
+      - 'src/**/*.jsx?'
 jobs:
   build:
     runs-on: ubuntu-latest
