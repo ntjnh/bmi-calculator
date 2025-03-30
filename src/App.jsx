@@ -1,50 +1,36 @@
 import React from 'react'
 import './App.css'
+import Calculator from './components/Calculator'
 
 function App() {
 
     return (
-        <>
-            <header>
-                <h1>BMI Calculator</h1>
-            </header>
+        <div className="flex flex-wrap items-center justify-center h-screen w-screen">
+            <div className="wrap max-w-3xl">
+                <header className="text-center">
+                    <h1 className="text-4xl">BMI Calculator</h1>
+                </header>
 
-            <main>
-                <section className="calculator">
-                    <h2>Enter your details below</h2>
+                <main className="grid grid-cols-[60%_36%] justify-between py-12">
+                    <Calculator />
 
-                    <form>
-                        <div className="units">
-                            <div>
-                                <input type="radio" name="units" id="metric" />
-                                <label htmlFor="metric">Metric</label>
-                            </div>
+                    <section className="border border-teal-200 bg-teal-200 flex items-center p-4 rounded-md text-center">
+                        <div className="">
+                            <h2 className="font-semibold mb-4 text-xl text-teal-950">Welcome!</h2>
+                            <p className="mt-1 text-sm/6 text-teal-800">
+                                Enter your height and weight and you'll see your BMI results here
+                            </p>
 
-                            <div>
-                                <input type="radio" name="units" id="imperial" />
-                                <label htmlFor="imperial">Imperial</label>
-                            </div>
+                            {/* results */}
                         </div>
+                    </section>
+                </main>
 
-                        <div className="measurements">
-                            <div>
-                                <label htmlFor="height">Height</label>
-                                <input type="text" name="height" id="height" />
-                            </div>
-
-                            <div>
-                                <label htmlFor="weight">Weight</label>
-                                <input type="text" name="weight" id="weight" />
-                            </div>
-                        </div>
-
-                        <button className="calculate-button" type="submit">Calculate</button>
-                    </form>
-                </section>
-            </main>
-
-            <footer></footer>
-        </>
+                <footer className="text-center">
+                    © {2025}
+                </footer>
+            </div>
+        </div>
     )
 }
 
