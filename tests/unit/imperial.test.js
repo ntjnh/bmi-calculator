@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import { imperialHeight, imperialWeight } from '../src/lib/imperial'
+import { imperialHeight, imperialWeight } from '../../src/lib/imperial'
 
 test('converts height from 6ft 2in to 1.88m', () => {
     expect(imperialHeight(6, 2)).toBe(1.88)

@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest'
-import classify from '../src/lib/classify'
+import classify from '../../src/lib/classify'
 
 test('returns underweight for a bmi of 16', () => {
     expect(classify(16)).toBe('underweight')
