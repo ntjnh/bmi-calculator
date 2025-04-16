@@ -15,7 +15,7 @@ export default function Calculator({ handleSubmit, handleHeightChange, handleWei
 
             <form onSubmit={handleSubmit}>
                 <div className="space-y-12">
-                    <div className="border-b border-teal-950/10 mb-0 pb-6">
+                    <div className="border-b border-teal-800/20 mb-0 pb-6">
                         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
                             <div className="sm:col-span-6">
                                 <fieldset>
@@ -51,9 +51,7 @@ export default function Calculator({ handleSubmit, handleHeightChange, handleWei
                         </div>
                     </div>
                     
-                    <Buttons
-                        reset={reset}
-                    />
+                    <Buttons reset={reset} />
                 </div>
 
             </form>
