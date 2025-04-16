@@ -1,34 +1,105 @@
-import React from 'react'
+import { useState } from 'react'
 import './App.css'
 import Calculator from './components/Calculator'
+import calculate from './lib/calculate'
+import range from './lib/range'
+import classify from './lib/classify'
+import Info from './components/Info'
 
 function App() {
+    const dev = 'NATE.DEV'
+    const today = new Date()
+    const year = today.getFullYear()
+
+    const [height, setHeight] = useState(0)
+    const [weight, setWeight] = useState(0)
+    const [bmi, setBmi] = useState(0)
+    const [healthyRange, setHealthyRange] = useState([0, 0])
+
+    const handleHeightChange = e => {
+        setHeight(e.target.value)
+        setHealthyRange(range(e.target.value * .01))
+    }
+
+    const handleWeightChange = e => {
+        setWeight(e.target.value)
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        setBmi(() => calculate(height, weight))
+    }
+    
+    const reset = () => {
+        setHeight(0)
+        setWeight(0)
+        setBmi(0)
+        setHealthyRange([0, 0])
+    }
 
     return (
-        <div className="flex flex-wrap items-center justify-center h-screen w-screen">
-            <div className="wrap max-w-3xl">
-                <header className="text-center">
-                    <h1 className="text-4xl">BMI Calculator</h1>
+        <div className="flex flex-wrap items-center justify-center min-h-screen w-screen">
+            <div className="wrap w-3xl">
+                <header className="py-6 text-center">
+                    <h1 className="font-medium text-5xl tracking-[-0.0125em]">BMI Calculator</h1>
                 </header>
 
-                <main className="grid grid-cols-[60%_36%] justify-between py-12">
-                    <Calculator />
+                <main className="py-6">
 
-                    <section className="border border-teal-200 bg-teal-200 flex items-center p-4 rounded-md text-center">
-                        <div className="">
-                            <h2 className="font-semibold mb-4 text-xl text-teal-950">Welcome!</h2>
-                            <p className="mt-1 text-sm/6 text-teal-800">
-                                Enter your height and weight and you'll see your BMI results here
-                            </p>
+                    <div className="grid grid-cols-[59%_38%] items-center justify-between">
+                        <Calculator
+                            height={height}
+                            weight={weight}
+                            handleHeightChange={handleHeightChange}
+                            handleWeightChange={handleWeightChange}
+                            handleSubmit={handleSubmit}
+                            reset={reset}
+                        />
 
-                            {/* results */}
-                        </div>
-                    </section>
+                        <section className="bg-teal-200 flex h-full items-center p-6 rounded-md text-center">
+                            
+                            {bmi < 1 ? (
+
+                                <div className="w-full">
+                                    <h2 className="font-semibold mb-4 text-2xl text-teal-950">
+                                        Welcome!
+                                    </h2>
+                                    <p className="mt-1 text-base text-teal-950 tracking-wide">
+                                        Enter your height and weight to see your BMI results here.
+                                    </p>
+                                </div>
+                            ) : (
+
+                                <div className="text-teal-950 w-full">
+                                    <p className="mb-1 text-lg tracking-wide">
+                                        Your BMI is
+                                    </p>
+                                    <h2 className="font-semibold mb-4 text-4xl">
+                                        {bmi}
+                                    </h2>
+
+                                    <p className="mb-4 text-lg tracking-wide">
+                                        Your BMI is in the<br />
+                                        <strong>{classify(bmi)}</strong><br />
+                                        category.
+                                    </p>
+
+                                        <p className="text-lg tracking-wide">
+                                        The ideal weight for your height is between <strong>{healthyRange[0]}</strong> and <strong>{healthyRange[1]} kg</strong>.
+                                    </p>
+                                </div>
+
+                            )}
+                        
+                        </section>
+
+                    </div>
+
+                    <Info />
+
                 </main>
 
-                <footer className="text-center">
-                    © {2025}
-                </footer>
+                <footer className="pb-6 text-center">© {dev} {year}</footer>
             </div>
         </div>
     )
