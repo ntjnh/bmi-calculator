@@ -1,9 +1,11 @@
 export function imperialHeight(ft, ins) {
-    const height = ft / 3.281 + ins / 39.37
-    return Number(height.toFixed(2))
+    const inches = ft * 12 + ins
+    const centimetres = inches * 2.54
+    return Math.round(centimetres)
 }
 
-export function imperialWeight(lbs) {
-    const weight = lbs / 2.205
-    return Number(weight.toFixed(2))
+export function imperialWeight(st, lbs) {
+    const pounds = st * 14 + lbs
+    const kilograms = pounds / 2.205
+    return Number(kilograms.toFixed(2))
 }
