@@ -14,7 +14,11 @@ export default defineConfig({
       enabled: true,
       instances: [
         { browser: 'chromium' }
-      ]
+      ],
+      viewport: {
+        width: 1440, 
+        height: 900
+      }
     }
   }
 })
