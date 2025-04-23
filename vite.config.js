@@ -15,6 +15,7 @@ export default defineConfig({
       instances: [
         { browser: 'chromium' }
       ],
+      headless: true,
       viewport: {
         width: 1440, 
         height: 900
