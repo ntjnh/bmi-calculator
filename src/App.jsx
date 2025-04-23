@@ -5,6 +5,7 @@ import calculate from './lib/calculate'
 import range from './lib/range'
 import classify from './lib/classify'
 import Info from './components/Info'
+import Footer from './components/Footer'
 
 function App() {
     const dev = 'NATE.DEV'
@@ -99,7 +100,7 @@ function App() {
 
                 </main>
 
-                <footer className="pb-6 text-center">© {dev} {year}</footer>
+                <Footer />
             </div>
         </div>
     )
