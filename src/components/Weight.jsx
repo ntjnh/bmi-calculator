@@ -1,12 +1,6 @@
 import NumberInput from './form/NumberInput'
 
-export default function Weight({
-    weight,
-    weightSt,
-    weightLbs,
-    onChange,
-    units
-}) {
+export default function Weight({ weight, weightSt, weightLbs, units }) {
     return (
         <fieldset className="fieldset">
             <legend className="legend">Weight</legend>
@@ -17,16 +11,14 @@ export default function Weight({
                     fieldLabel="Kilograms"
                     fieldPlaceholder="kg"
                     val={weight}
-                    onChange={onChange}
                 />
             ) : (
-                    <div className="num-double">
+                <div className="num-double">
                     <NumberInput
                         fieldId="weight-st"
                         fieldLabel="Stone"
                         fieldPlaceholder="st"
                         val={weightSt}
-                        onChange={onChange}
                     />
 
                     <NumberInput
@@ -34,7 +26,6 @@ export default function Weight({
                         fieldLabel="Pounds"
                         fieldPlaceholder="lbs"
                         val={weightLbs}
-                        onChange={onChange}
                     />
                 </div>
             )}

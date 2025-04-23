@@ -1,60 +1,29 @@
 import { useState } from 'react'
 import './App.css'
 import Calculator from './components/Calculator'
-import calculate from './lib/calculate'
-import range from './lib/range'
-import classify from './lib/classify'
 import Info from './components/Info'
 import Footer from './components/Footer'
+import classify from './lib/classify'
 
 function App() {
-    const dev = 'NATE.DEV'
-    const today = new Date()
-    const year = today.getFullYear()
-
-    const [height, setHeight] = useState(0)
-    const [weight, setWeight] = useState(0)
     const [bmi, setBmi] = useState(0)
     const [healthyRange, setHealthyRange] = useState([0, 0])
-
-    const handleHeightChange = e => {
-        setHeight(e.target.value)
-        setHealthyRange(range(e.target.value * .01))
-    }
-
-    const handleWeightChange = e => {
-        setWeight(e.target.value)
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault()
-        setBmi(() => calculate(height, weight))
-    }
     
-    const reset = () => {
-        setHeight(0)
-        setWeight(0)
-        setBmi(0)
-        setHealthyRange([0, 0])
-    }
-
     return (
         <div className="flex flex-wrap items-center justify-center min-h-screen w-screen">
             <div className="wrap w-3xl">
                 <header className="py-6 text-center">
-                    <h1 className="font-medium text-5xl tracking-[-0.0125em]">BMI Calculator</h1>
+                    <h1 className="font-medium text-5xl tracking-[-0.0125em]">
+                        BMI Calculator
+                    </h1>
                 </header>
 
                 <main className="py-6">
 
                     <div className="grid grid-cols-[59%_38%] items-center justify-between">
                         <Calculator
-                            height={height}
-                            weight={weight}
-                            handleHeightChange={handleHeightChange}
-                            handleWeightChange={handleWeightChange}
-                            handleSubmit={handleSubmit}
-                            reset={reset}
+                            setBmi={setBmi}
+                            setHealthyRange={setHealthyRange}
                         />
 
                         <section className="bg-teal-200 flex h-full items-center p-6 rounded-md text-center">
@@ -85,7 +54,7 @@ function App() {
                                         category.
                                     </p>
 
-                                        <p className="text-lg tracking-wide">
+                                    <p className="text-lg tracking-wide">
                                         The ideal weight for your height is between <strong>{healthyRange[0]}</strong> and <strong>{healthyRange[1]} kg</strong>.
                                     </p>
                                 </div>

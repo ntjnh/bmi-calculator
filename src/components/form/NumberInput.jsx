@@ -12,10 +12,10 @@ export default function NumberInput(props) {
                     id={props.fieldId}
                     name={props.fieldId}
                     type="number"
+                    step="any"
                     placeholder={`0 ${props.fieldPlaceholder}`}
                     className="num-input"
-                    value={props.val}
-                    onChange={props.onChange}
+                    ref={props.val}
                 />
             </div>
         </div>
