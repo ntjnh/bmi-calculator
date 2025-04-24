@@ -7,7 +7,5 @@ export default function classify(bmi) {
         return 'overweight'
     } else if (bmi >= 30) {
         return 'obese'
-    } else {
-        console.error(`BMI is invalid.`)
     }
 }
