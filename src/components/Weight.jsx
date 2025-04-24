@@ -1,8 +1,8 @@
 import NumberInput from './form/NumberInput'
 
-export default function Weight({ weight, weightSt, weightLbs, units }) {
+export default function Weight({ invalid, weight, weightSt, weightLbs, units }) {
     return (
-        <fieldset className="fieldset">
+        <fieldset className={`fieldset ${invalid ? 'field-error' : ''}`}>
             <legend className="legend">Weight</legend>
 
             {units === 'metric' ? (
@@ -11,6 +11,7 @@ export default function Weight({ weight, weightSt, weightLbs, units }) {
                     fieldLabel="Kilograms"
                     fieldPlaceholder="kg"
                     val={weight}
+                    invalid={invalid}
                 />
             ) : (
                 <div className="num-double">
@@ -19,6 +20,7 @@ export default function Weight({ weight, weightSt, weightLbs, units }) {
                         fieldLabel="Stone"
                         fieldPlaceholder="st"
                         val={weightSt}
+                        invalid={invalid}
                     />
 
                     <NumberInput
@@ -26,6 +28,7 @@ export default function Weight({ weight, weightSt, weightLbs, units }) {
                         fieldLabel="Pounds"
                         fieldPlaceholder="lbs"
                         val={weightLbs}
+                        invalid={invalid}
                     />
                 </div>
             )}

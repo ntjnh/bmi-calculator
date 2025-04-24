@@ -10,6 +10,11 @@ import range from '../lib/range'
 export default function Calculator({ setBmi, setHealthyRange }) {
     const [units, setUnits] = useState('metric')
     const [canReset, setCanReset] = useState(false)
+    const [showError, setShowError] = useState(false)
+    const [invalidHeight, setInvalidHeight] = useState(false)
+    const [invalidWeight, setInvalidWeight] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+
     const heightRef = useRef()
     const heightFtRef = useRef()
     const heightInRef = useRef()
@@ -24,10 +29,38 @@ export default function Calculator({ setBmi, setHealthyRange }) {
 
         let height
         let weight
-
+        
         if (units === 'metric') {
-            height = heightRef.current.value
-            weight = weightRef.current.value
+            
+            // Check if height or weight is blank
+            if (!heightRef.current.value && !weightRef.current.value) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setInvalidWeight(true)
+                setErrorMessage('Please enter your height and weight.')
+
+            } else if (!heightRef.current.value) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setErrorMessage('Height cannot be blank.')
+
+            } else if (!weightRef.current.value) {
+
+                setShowError(true)
+                setInvalidWeight(true)
+                setErrorMessage('Weight cannot be blank.')
+
+            } else {
+                setShowError(false)
+                setInvalidHeight(false)
+                setInvalidWeight(false)
+
+                height = heightRef.current.value
+                weight = weightRef.current.value
+            }
+
         } else {
             height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
             weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
@@ -36,6 +69,14 @@ export default function Calculator({ setBmi, setHealthyRange }) {
         setBmi(calculate(height, weight))
         setHealthyRange(range(height))
         setCanReset(prev => !prev)
+
+        // Check if height is unrealistic - between 91.44cm (3 feet) and 274.32cm (9 feet)
+            // Please enter a height between 91.44 cm and 274.32 cm.
+            // The height you entered is not valid. It should be between 91.44 cm and 274.32 cm.
+        // Check if weight is unrealistic - between 24.95kg () and 453.59kg (1000 lbs)
+            // "Please enter a weight between 24.95 kg and 453.59 kg."
+            // "The weight you entered is not valid. It should be between 24.95 kg and 453.59 kg."
+
     }
 
     const reset = () => {
@@ -51,6 +92,9 @@ export default function Calculator({ setBmi, setHealthyRange }) {
 
         setBmi(0)
         setHealthyRange([0, 0])
+        setShowError(false)
+        setInvalidHeight(false)
+        setInvalidWeight(false)
         setCanReset(prev => !prev)
     }
 
@@ -63,7 +107,7 @@ export default function Calculator({ setBmi, setHealthyRange }) {
             <form onSubmit={handleSubmit}>
                 <div className="space-y-12">
                     <div className="border-b border-teal-800/20 mb-0 pb-6">
-                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
                             <div className="sm:col-span-6">
                                 <fieldset>
                                     <div className="flex space-x-6">
@@ -84,17 +128,25 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                                 </fieldset>
                             </div>
 
+                            {showError && 
+                                <div className="sm:col-span-6 error-msg" role="alert">
+                                    <span>{errorMessage}</span>
+                                </div>
+                            }
+
                             <Height
                                 height={heightRef}
                                 heightFt={heightFtRef}
                                 heightIn={heightInRef}
                                 units={units}
+                                invalid={invalidHeight}
                             />
                             <Weight
                                 weight={weightRef}
                                 weightSt={weightStRef}
                                 weightLbs={weightLbsRef}
                                 units={units}
+                                invalid={invalidWeight}
                             />
 
                         </div>
