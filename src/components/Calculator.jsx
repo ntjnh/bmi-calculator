@@ -9,6 +9,7 @@ import range from '../lib/range'
 
 export default function Calculator({ setBmi, setHealthyRange }) {
     const [units, setUnits] = useState('metric')
+    const [canReset, setCanReset] = useState(false)
     const heightRef = useRef()
     const heightFtRef = useRef()
     const heightInRef = useRef()
@@ -34,6 +35,23 @@ export default function Calculator({ setBmi, setHealthyRange }) {
 
         setBmi(calculate(height, weight))
         setHealthyRange(range(height))
+        setCanReset(prev => !prev)
+    }
+
+    const reset = () => {
+        if (units === 'metric') {
+            heightRef.current.value = ''
+            weightRef.current.value = ''
+        } else {
+            heightFtRef.current.value = ''
+            heightInRef.current.value = ''
+            weightStRef.current.value = ''
+            weightLbsRef.current.value = ''
+        }
+
+        setBmi(0)
+        setHealthyRange([0, 0])
+        setCanReset(prev => !prev)
     }
 
     return (
@@ -82,7 +100,7 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                         </div>
                     </div>
                     
-                    <Buttons />
+                    <Buttons canReset={canReset} reset={reset} />
                 </div>
 
             </form>
