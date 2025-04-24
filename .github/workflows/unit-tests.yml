@@ -1,10 +1,6 @@
 name: Unit tests
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'src/**/*.jsx?'
   pull_request:
     branches:
       - 'Bug/**'
