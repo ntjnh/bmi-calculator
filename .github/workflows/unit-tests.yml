@@ -1,14 +1,10 @@
 name: Unit tests
 on:
   push:
-    branches:
-      - main
   pull_request:
     branches:
       - 'Bug/**'
       - 'Feature/**'
-    paths:
-      - 'src/**/*.jsx?'
 jobs:
   build:
     runs-on: ubuntu-latest
