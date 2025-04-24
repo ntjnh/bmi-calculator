@@ -3,12 +3,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**/*.jsx?'
   pull_request:
     branches:
       - 'Bug/**'
       - 'Feature/**'
-    paths:
-      - 'src/**/*.jsx?'
 jobs:
   build:
     runs-on: ubuntu-latest
