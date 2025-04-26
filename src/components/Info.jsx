@@ -1,14 +1,14 @@
 export default function Info() {
     return (
-        <div className="grid grid-cols-2 gap-6 justify-between mt-6">
-            <section className="bg-teal-100 flex items-center p-6 rounded-md text-teal-950">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 justify-between mt-4 md:mt-6">
+            <section className="bg-teal-100 flex items-center px-4 pt-4 pb-6 md:p-6 rounded-md text-teal-950">
 
                 <div className="w-full">
-                    <h2 className="font-medium mb-2 text-2xl tracking-wide">
+                    <h2 className="font-medium mb-2 text-xl md:text-2xl tracking-wide">
                         Your result
                     </h2>
 
-                    <p className="mb-4 text-base tracking-wide">
+                    <p className="mb-4 text-sm md:text-base tracking-wide">
                         Your BMI result falls into one of these weight categories:
                     </p>
 
@@ -44,21 +44,21 @@ export default function Info() {
 
             </section>
 
-            <section className="bg-teal-950 flex p-6 rounded-md text-teal-50">
+            <section className="bg-teal-950 flex px-4 pt-4 pb-6 md:p-6 rounded-md text-teal-50">
 
                 <div className="w-full">
-                    <h2 className="font-medium mb-2 text-2xl tracking-wide">
+                    <h2 className="font-medium mb-2 text-xl md:text-2xl tracking-wide">
                         How your BMI is calculated
                     </h2>
 
-                    <p className="mb-4 text-base tracking-wide">
+                    <p className="mb-4 text-sm md:text-base tracking-wide">
                         Your BMI is calculated by dividing your weight in kilograms by your height in metres squared.
                     </p>
 
-                    <p className="mb-6 text-base tracking-wider">
+                    <p className="mb-4 md:mb-6 text-sm md:text-base tracking-wider">
                         For example, if you weigh 69 kilograms and are 188 centimetres tall, you work out your BMI like this:
                     </p>
-                    <p className="text-center text-2xl tracking-wider">
+                    <p className="text-center text-xl md:text-2xl tracking-wider">
                         69 ÷ 1.88² = 19.5
                     </p>
                 </div>
