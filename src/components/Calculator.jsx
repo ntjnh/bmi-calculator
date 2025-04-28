@@ -117,7 +117,7 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                     setShowError(true)
                     setInvalidHeight(true)
                     setInvalidWeight(true)
-                    setErrorMessage('Please enter a height between 3ft and 9ft and a weight between 24.95kg and 453.59kg.')
+                    setErrorMessage('Please enter a height between 3 and 9 feet and a weight between 3 and 71 stone.')
                 } else if (!validHeight) {
                     setShowError(true)
                     setInvalidHeight(true)

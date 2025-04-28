@@ -54,3 +54,80 @@ describe.each([
         })
     })
 })
+
+describe.each([
+    {
+        heightFtFieldValue: '11',
+        heightInFieldValue: '19',
+        weightStFieldValue: '99',
+        weightLbsFieldValue: '20',
+        invalidField: 'Feet',
+        invalidField2: 'Stone',
+        errorText: 'Please enter a height between 3 and 9 feet and a weight between 3 and 71 stone.'
+    },
+    {
+        heightFtFieldValue: '2',
+        heightInFieldValue: '0',
+        weightStFieldValue: '2',
+        weightLbsFieldValue: '0',
+        invalidField: 'Feet',
+        invalidField2: 'Stone',
+        errorText: 'Please enter a height between 3 and 9 feet and a weight between 3 and 71 stone.'
+    },
+    {
+        heightFtFieldValue: '2',
+        heightInFieldValue: '17',
+        weightStFieldValue: '12',
+        weightLbsFieldValue: '5',
+        invalidField: 'Feet',
+        errorText: 'Please enter a height between 3 feet and 9 feet. Inches must be between 0 and 11.'
+    },
+    {
+        heightFtFieldValue: '6',
+        heightInFieldValue: '2',
+        weightStFieldValue: '88',
+        weightLbsFieldValue: '99',
+        invalidField: 'Pounds',
+        errorText: 'Please enter a weight between 3 and 71 stone. Pounds must be between 0 and 13.'
+    }
+])('calculator error handling', ({
+    heightFtFieldValue,
+    heightInFieldValue,
+    weightStFieldValue,
+    weightLbsFieldValue,
+    invalidField,
+    invalidField2,
+    errorText
+}) => {
+    test(`displays appropriate error messages when ${invalidField} is invalid`, async () => {
+        const screen = render(<App />)
+        const errorMessage = screen.getByRole('alert')
+        const errorColour = 'oklch(0.505 0.213 27.518)'
+
+        await screen.getByLabelText('Imperial').click()
+        await screen.getByLabelText('Feet').fill(heightFtFieldValue)
+        await screen.getByLabelText('Inches').fill(heightInFieldValue)
+        await screen.getByLabelText('Stone').fill(weightStFieldValue)
+        await screen.getByLabelText('Pounds').fill(weightLbsFieldValue)
+
+        await screen.getByRole('button').getByText('Calculate').click()
+
+        await expect.element(errorMessage).toBeInTheDocument()
+        await expect.element(errorMessage).toHaveTextContent(errorText)
+        await expect.element(errorMessage).toHaveClass('error-msg')
+        await expect.element(errorMessage).toHaveStyle({
+            color: errorColour,
+            fontWeight: '600'
+        })
+
+        await expect.element(screen.getByLabelText(invalidField)).toHaveStyle({
+            borderColor: errorColour
+        })
+
+        if (invalidField2) {
+            await expect.element(screen.getByLabelText(invalidField2)).toHaveStyle({
+                borderColor: errorColour
+            })
+        }
+    })
+})
