@@ -109,8 +109,8 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                 const validHeightIn = parseInt(heightInRef.current.value, 10) >= 0 && parseInt(heightInRef.current.value, 10) < 12
                 const validHeight = validHeightFt && validHeightIn
 
-                const validWeightSt = parseInt(weightRef.current.value, 10) >= 3 && parseInt(weightRef.current.value, 10) <= 71
-                const validWeightLbs = parseInt(weightRef.current.value, 10) >= 0 && parseInt(weightRef.current.value, 10) <= 14
+                const validWeightSt = parseInt(weightStRef.current.value, 10) >= 3 && parseInt(weightStRef.current.value, 10) <= 71
+                const validWeightLbs = parseInt(weightLbsRef.current.value, 10) >= 0 && parseInt(weightLbsRef.current.value, 10) <= 14
                 const validWeight = validWeightSt && validWeightLbs
 
                 if (!validHeight && !validWeight) {
@@ -128,21 +128,15 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                     setErrorMessage('Please enter a weight between 3 and 71 stone. Pounds must be between 0 and 13.')
                 } else {
 
-                    height = heightRef.current.value
-                    weight = weightRef.current.value
+                    height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
+                    weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
                 }
-
-                height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
-                weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
-
             }
         }
 
         setBmi(calculate(height, weight))
         setHealthyRange(range(height))
         setCanReset(prev => !prev)
-
-        
 
     }
 
