@@ -27,12 +27,16 @@ export default function Calculator({ setBmi, setHealthyRange }) {
     const handleSubmit = e => {
         e.preventDefault()
 
+        setShowError(false)
+        setInvalidHeight(false)
+        setInvalidWeight(false)
+
         let height
         let weight
         
+        // Check if height or weight is blank
         if (units === 'metric') {
-            
-            // Check if height or weight is blank
+
             if (!heightRef.current.value && !weightRef.current.value) {
 
                 setShowError(true)
@@ -53,17 +57,40 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                 setErrorMessage('Weight cannot be blank.')
 
             } else {
-                setShowError(false)
-                setInvalidHeight(false)
-                setInvalidWeight(false)
 
                 height = heightRef.current.value
                 weight = weightRef.current.value
             }
 
         } else {
-            height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
-            weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
+            if (
+                (!heightFtRef.current.value || !heightInRef.current.value) &&
+                (!weightStRef.current.value || !weightLbsRef.current.value)
+            ) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setInvalidWeight(true)
+                setErrorMessage('Please enter your height and weight.')
+
+            } else if (!heightFtRef.current.value || !heightInRef.current.value) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setErrorMessage('Please fill in both height fields.')
+
+            } else if (!weightStRef.current.value || !weightLbsRef.current.value) {
+
+                setShowError(true)
+                setInvalidWeight(true)
+                setErrorMessage('Please fill in both weight fields.')
+
+            } else {
+
+                height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
+                weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
+
+            }
         }
 
         setBmi(calculate(height, weight))
