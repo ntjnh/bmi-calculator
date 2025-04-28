@@ -12,13 +12,13 @@ function App() {
     return (
         <div className="flex flex-wrap items-center justify-center min-h-screen w-screen">
             <div className="wrap w-3xl">
-                <header className="pt-8 pb-6 md:py-6 text-center">
-                    <h1 className="font-medium text-3xl md:text-5xl tracking-[-0.0125em]">
+                <header className="pt-8 pb-6 md:pt-0 md:pb-4 xl:py-6 text-center">
+                    <h1 className="font-medium text-3xl md:text-4xl xl:text-5xl tracking-[-0.0125em] md:tracking-tighter xl:tracking-[-0.0125em]">
                         BMI Calculator
                     </h1>
                 </header>
 
-                <main className="pb-6 px-4 md:px-0 md:py-6">
+                <main className="pb-6 px-4 md:px-6 xl:px-0 md:py-6">
 
                     <div className="gap-y-4 md:gap-y-0 grid grid-cols-1 md:grid-cols-[59%_38%] items-center justify-between">
                         <Calculator

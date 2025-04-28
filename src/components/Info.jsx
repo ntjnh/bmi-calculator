@@ -4,11 +4,11 @@ export default function Info() {
             <section className="bg-teal-100 flex items-center px-4 pt-4 pb-6 md:p-6 rounded-md text-teal-950">
 
                 <div className="w-full">
-                    <h2 className="font-medium mb-2 text-xl md:text-2xl tracking-wide">
+                    <h2 className="font-medium mb-2 text-xl md:text-[1.25rem] lg:text-2xl tracking-wide">
                         Your result
                     </h2>
 
-                    <p className="mb-4 text-sm md:text-base tracking-wide">
+                    <p className="mb-4 md:mb-6 lg:mb-4 text-sm md:text-base tracking-wide">
                         Your BMI result falls into one of these weight categories:
                     </p>
 
@@ -47,7 +47,7 @@ export default function Info() {
             <section className="bg-teal-950 flex px-4 pt-4 pb-6 md:p-6 rounded-md text-teal-50">
 
                 <div className="w-full">
-                    <h2 className="font-medium mb-2 text-xl md:text-2xl tracking-wide">
+                    <h2 className="font-medium mb-2 text-xl md:text-[1.25rem] lg:text-2xl tracking-wide">
                         How your BMI is calculated
                     </h2>
 
