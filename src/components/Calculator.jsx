@@ -57,9 +57,27 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                 setErrorMessage('Weight cannot be blank.')
 
             } else {
+                const validHeight = parseInt(heightRef.current.value, 10) > 91.43 && parseInt(heightRef.current.value, 10) < 274.33
+                const validWeight = parseInt(weightRef.current.value, 10) > 24.94 && parseInt(weightRef.current.value, 10) < 453.59
 
-                height = heightRef.current.value
-                weight = weightRef.current.value
+                if (!validHeight && !validWeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a height between 91.44cm and 274.32cm and a weight between 24.95kg and 453.59kg.')
+                } else if (!validHeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setErrorMessage('Please enter a height between 91.44cm and 274.32cm.')
+                } else if (!validWeight) {
+                    setShowError(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a weight between 24.95kg and 453.59kg.')
+                } else {
+
+                    height = heightRef.current.value
+                    weight = weightRef.current.value
+                }
             }
 
         } else {
@@ -87,6 +105,33 @@ export default function Calculator({ setBmi, setHealthyRange }) {
 
             } else {
 
+                const validHeightFt = parseInt(heightFtRef.current.value, 10) >= 3 && parseInt(heightFtRef.current.value, 10) <= 9
+                const validHeightIn = parseInt(heightInRef.current.value, 10) >= 0 && parseInt(heightInRef.current.value, 10) < 12
+                const validHeight = validHeightFt && validHeightIn
+
+                const validWeightSt = parseInt(weightRef.current.value, 10) >= 3 && parseInt(weightRef.current.value, 10) <= 71
+                const validWeightLbs = parseInt(weightRef.current.value, 10) >= 0 && parseInt(weightRef.current.value, 10) <= 14
+                const validWeight = validWeightSt && validWeightLbs
+
+                if (!validHeight && !validWeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a height between 3ft and 9ft and a weight between 24.95kg and 453.59kg.')
+                } else if (!validHeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setErrorMessage('Please enter a height between 3 feet and 9 feet. Inches must be between 0 and 11.')
+                } else if (!validWeight) {
+                    setShowError(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a weight between 3 and 71 stone. Pounds must be between 0 and 13.')
+                } else {
+
+                    height = heightRef.current.value
+                    weight = weightRef.current.value
+                }
+
                 height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
                 weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
 
@@ -97,12 +142,7 @@ export default function Calculator({ setBmi, setHealthyRange }) {
         setHealthyRange(range(height))
         setCanReset(prev => !prev)
 
-        // Check if height is unrealistic - between 91.44cm (3 feet) and 274.32cm (9 feet)
-            // Please enter a height between 91.44 cm and 274.32 cm.
-            // The height you entered is not valid. It should be between 91.44 cm and 274.32 cm.
-        // Check if weight is unrealistic - between 24.95kg () and 453.59kg (1000 lbs)
-            // "Please enter a weight between 24.95 kg and 453.59 kg."
-            // "The weight you entered is not valid. It should be between 24.95 kg and 453.59 kg."
+        
 
     }
 
