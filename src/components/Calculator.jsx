@@ -55,18 +55,18 @@ export default function Calculator({ setBmi, setHealthyRange }) {
     }
 
     return (
-        <section className="bg-neutral-200 calculator p-6 rounded-md">
-            <h2 className="text-xl/7 font-semibold text-teal-950">
+        <section className="bg-neutral-200 calculator order-2 md:order-1 p-4 md:p-6 rounded-md">
+            <h2 className="text-lg lg:text-xl/7 font-semibold text-teal-950">
                 Enter your details below
             </h2>
 
             <form onSubmit={handleSubmit}>
-                <div className="space-y-12">
-                    <div className="border-b border-teal-800/20 mb-0 pb-6">
-                        <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
-                            <div className="sm:col-span-6">
+                <div className="md:space-y-12">
+                    <div className="border-b border-teal-800/20 mb-0 pb-4 md:pb-6">
+                        <div className="mt-4 md:mt-6 grid grid-cols-6 gap-4 lg:gap-6">
+                            <div className="col-span-6">
                                 <fieldset>
-                                    <div className="flex space-x-6">
+                                    <div className="flex space-x-4 md:space-x-6">
                                         <RadioInput
                                             defaultChecked={true}
                                             fieldId="metric"

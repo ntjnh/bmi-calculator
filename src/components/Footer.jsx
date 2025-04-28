@@ -4,6 +4,6 @@ export default function Footer() {
     const year = today.getFullYear()
 
     return (
-        <footer className="pb-6 text-center">© {dev} {year}</footer>
+        <footer className="pb-4 md:py-6 xl:pt-0 text-center">© {dev} {year}</footer>
     )
 }
