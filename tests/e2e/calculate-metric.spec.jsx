@@ -12,8 +12,7 @@ test('calculates BMI based on metric height and weight', async () => {
     const calcButton = screen.getByRole('button').getByText('Calculate')
     const resetButton = screen.getByRole('button').getByText('Reset')
 
-    // Buttons should be unclickable
-    // await expect.element(calcButton).toBeDisabled()
+    // Reset button should be unclickable
     await expect.element(resetButton).toBeDisabled()
 
     // Set units to metric
@@ -38,6 +37,5 @@ test('calculates BMI based on metric height and weight', async () => {
     await expect.element(kg).not.toHaveValue()
     await expect.element(screen.getByText(/^Your BMI is$/)).not.toBeInTheDocument()
     await expect.element(screen.getByText('Welcome!')).toBeInTheDocument()
-    // await expect.element(calcButton).toBeDisabled()
     await expect.element(resetButton).toBeDisabled()
 })

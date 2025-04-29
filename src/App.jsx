@@ -28,7 +28,7 @@ function App() {
 
                         <section className="bg-teal-200 flex h-full items-center order-1 md:order-2 p-4 md:p-6 rounded-md text-center">
                             
-                            {bmi < 1 ? (
+                            {isNaN(bmi) || bmi < 1 ? (
 
                                 <div className="w-full">
                                     <h2 className="font-semibold mb-2 md:mb-4 text-xl md:text-2xl text-teal-950">

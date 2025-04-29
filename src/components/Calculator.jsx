@@ -10,6 +10,11 @@ import range from '../lib/range'
 export default function Calculator({ setBmi, setHealthyRange }) {
     const [units, setUnits] = useState('metric')
     const [canReset, setCanReset] = useState(false)
+    const [showError, setShowError] = useState(false)
+    const [invalidHeight, setInvalidHeight] = useState(false)
+    const [invalidWeight, setInvalidWeight] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+
     const heightRef = useRef()
     const heightFtRef = useRef()
     const heightInRef = useRef()
@@ -22,20 +27,117 @@ export default function Calculator({ setBmi, setHealthyRange }) {
     const handleSubmit = e => {
         e.preventDefault()
 
+        setShowError(false)
+        setInvalidHeight(false)
+        setInvalidWeight(false)
+
         let height
         let weight
-
+        
+        // Check if height or weight is blank
         if (units === 'metric') {
-            height = heightRef.current.value
-            weight = weightRef.current.value
+
+            if (!heightRef.current.value && !weightRef.current.value) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setInvalidWeight(true)
+                setErrorMessage('Please enter your height and weight.')
+
+            } else if (!heightRef.current.value) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setErrorMessage('Height cannot be blank.')
+
+            } else if (!weightRef.current.value) {
+
+                setShowError(true)
+                setInvalidWeight(true)
+                setErrorMessage('Weight cannot be blank.')
+
+            } else {
+                const validHeight = parseInt(heightRef.current.value, 10) > 91.43 && parseInt(heightRef.current.value, 10) < 274.33
+                const validWeight = parseInt(weightRef.current.value, 10) > 24.94 && parseInt(weightRef.current.value, 10) < 453.59
+
+                if (!validHeight && !validWeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a height between 91.44cm and 274.32cm and a weight between 24.95kg and 453.59kg.')
+                } else if (!validHeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setErrorMessage('Please enter a height between 91.44cm and 274.32cm.')
+                } else if (!validWeight) {
+                    setShowError(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a weight between 24.95kg and 453.59kg.')
+                } else {
+
+                    height = heightRef.current.value
+                    weight = weightRef.current.value
+                }
+            }
+
         } else {
-            height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
-            weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
+            if (
+                (!heightFtRef.current.value || !heightInRef.current.value) &&
+                (!weightStRef.current.value || !weightLbsRef.current.value)
+            ) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setInvalidWeight(true)
+                setErrorMessage('Please enter your height and weight.')
+
+            } else if (!heightFtRef.current.value || !heightInRef.current.value) {
+
+                setShowError(true)
+                setInvalidHeight(true)
+                setErrorMessage('Please fill in both height fields.')
+
+            } else if (!weightStRef.current.value || !weightLbsRef.current.value) {
+
+                setShowError(true)
+                setInvalidWeight(true)
+                setErrorMessage('Please fill in both weight fields.')
+
+            } else {
+
+                const validHeightFt = parseInt(heightFtRef.current.value, 10) >= 3 && parseInt(heightFtRef.current.value, 10) <= 9
+                const validHeightIn = parseInt(heightInRef.current.value, 10) >= 0 && parseInt(heightInRef.current.value, 10) < 12
+                const validHeight = validHeightFt && validHeightIn
+
+                const validWeightSt = parseInt(weightStRef.current.value, 10) >= 3 && parseInt(weightStRef.current.value, 10) <= 71
+                const validWeightLbs = parseInt(weightLbsRef.current.value, 10) >= 0 && parseInt(weightLbsRef.current.value, 10) <= 14
+                const validWeight = validWeightSt && validWeightLbs
+
+                if (!validHeight && !validWeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a height between 3 and 9 feet and a weight between 3 and 71 stone.')
+                } else if (!validHeight) {
+                    setShowError(true)
+                    setInvalidHeight(true)
+                    setErrorMessage('Please enter a height between 3 feet and 9 feet. Inches must be between 0 and 11.')
+                } else if (!validWeight) {
+                    setShowError(true)
+                    setInvalidWeight(true)
+                    setErrorMessage('Please enter a weight between 3 and 71 stone. Pounds must be between 0 and 13.')
+                } else {
+
+                    height = imperialHeight(heightFtRef.current.value, heightInRef.current.value)
+                    weight = imperialWeight(weightStRef.current.value, weightLbsRef.current.value)
+                }
+            }
         }
 
         setBmi(calculate(height, weight))
         setHealthyRange(range(height))
         setCanReset(prev => !prev)
+
     }
 
     const reset = () => {
@@ -51,6 +153,9 @@ export default function Calculator({ setBmi, setHealthyRange }) {
 
         setBmi(0)
         setHealthyRange([0, 0])
+        setShowError(false)
+        setInvalidHeight(false)
+        setInvalidWeight(false)
         setCanReset(prev => !prev)
     }
 
@@ -84,17 +189,25 @@ export default function Calculator({ setBmi, setHealthyRange }) {
                                 </fieldset>
                             </div>
 
+                            {showError && 
+                                <div className="sm:col-span-6 error-msg" role="alert">
+                                    <span>{errorMessage}</span>
+                                </div>
+                            }
+
                             <Height
                                 height={heightRef}
                                 heightFt={heightFtRef}
                                 heightIn={heightInRef}
                                 units={units}
+                                invalid={invalidHeight}
                             />
                             <Weight
                                 weight={weightRef}
                                 weightSt={weightStRef}
                                 weightLbs={weightLbsRef}
                                 units={units}
+                                invalid={invalidWeight}
                             />
 
                         </div>

@@ -34,7 +34,7 @@
     }
 
     .button {
-        @apply border cursor-pointer rounded-md py-2 text-sm md:text-base tracking-[0.0125em] font-semibold shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600;
+        @apply border cursor-pointer rounded-md py-2 text-sm md:text-base tracking-[0.0125em] font-semibold shadow-xs disabled:bg-neutral-400 disabled:border-neutral-400 disabled:cursor-not-allowed disabled:opacity-75 disabled:text-neutral-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600;
     }
 
     .button-submit {
@@ -55,6 +55,20 @@
         th,
         td {
             @apply border border-teal-600 px-2 md:px-3 py-1 text-sm md:text-base text-left;
+        }
+    }
+
+    .error-msg {
+        @apply font-semibold text-red-700;
+    }
+
+    .field-error {
+        .num-label {
+            @apply text-red-700;
+        }
+
+        .num-input {
+            @apply border-2 border-red-700 outline-red-700 placeholder:text-red-700;
         }
     }
 }

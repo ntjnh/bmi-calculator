@@ -1,4 +1,4 @@
-name: Unit tests
+name: Vitest Tests
 on:
   push:
   pull_request:
